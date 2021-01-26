@@ -1,12 +1,15 @@
 
 const { Pool } = require("pg");
 
-const pool = new Pool({
+const dbConfig = {
   user: process.env.DB_USER || "vagrant",
   password: process.env.DB_PASS || "123",
   host: process.env.DB_HOST || "localhost",
   database: process.env.DB_NAME || "loan-payment",
-});
+};
+
+console.log(dbConfig);
+const pool = new Pool(dbConfig);
 
 const paymentsQuery =
   "select p.id id, TO_CHAR(date,'YYYY-mm-dd') date, amount, rate \
