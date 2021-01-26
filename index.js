@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const moment = require("moment");
 const { getPayments } = require("./db.js");
@@ -60,7 +61,6 @@ const getRecords = function (rows) {
   {
     const id = 999998;
     const now = moment().startOf('day');
-    console.log("now=", now);
     const date = now.format('YYYY-MM-DD');
     const months = now.diff(moment(prev), 'months', true);
     const interest = Math.round(balance * lastRate / 100 * months);
@@ -92,5 +92,5 @@ const getRecords = function (rows) {
 
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}!`);
+  console.log(`Payment API started on port ${PORT}!`);
 });

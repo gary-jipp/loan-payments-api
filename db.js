@@ -1,10 +1,11 @@
+
 const { Pool } = require("pg");
 
 const pool = new Pool({
-  user: "vagrant",
-  password: "123",
-  host: "localhost",
-  database: "loan-payment",
+  user: process.env.DB_USER || "vagrant",
+  password: process.env.DB_PASS || "123",
+  host: process.env.DB_HOST || "localhost",
+  database: process.env.DB_NAME || "loan-payment",
 });
 
 const paymentsQuery =
