@@ -4,12 +4,12 @@ const { getPayments } = require("./db.js");
 const path = require('path');
 
 const app = express();
-const PORT = 8000; // default port 8000
+const PORT = process.env.PORT || 8000;
 
 // serve static files in ../build
 const public = path.join(__dirname, '..', 'public');
 console.log(public);
-app.use(express.static(public))
+app.use(express.static(public));
 
 app.get("/api/payments/:uid", (req, res) => {
   getPayments(req.params.uid)
@@ -64,7 +64,7 @@ const getRecords = function (rows) {
     const date = now.format('YYYY-MM-DD');
     const months = now.diff(moment(prev), 'months', true);
     const interest = Math.round(balance * lastRate / 100 * months);
-    const record = { id, date:"Today", prev, months, open: balance, interest, balance: balance + interest };
+    const record = { id, date: "Today", prev, months, open: balance, interest, balance: balance + interest };
     records.push(record);
   }
 
