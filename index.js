@@ -20,6 +20,10 @@ app.get("/api/payments/:uid", (req, res) => {
     .catch(e => console.log(e));
 });
 
+app.use(function (req, res) {
+  res.send(404);
+});
+
 const getRecords = function (rows) {
 
   let balance = 0;
