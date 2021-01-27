@@ -60,7 +60,6 @@ const getRecords = function (rows) {
     return { ...record, months, interest, loan, paid, balance, start };
   });
 
-
   // calculate interest and balance due today
   {
     const id = 999998;
