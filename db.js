@@ -17,7 +17,7 @@ console.log(dbConfig);
 const pool = new Pool(dbConfig);
 
 const paymentsQuery =
-  "select p.id id, TO_CHAR(date,'YYYY-mm-dd') date, amount, rate \
+  "select p.id id, TO_CHAR(date,'YYYY-mm-dd') date, amount, rate, name \
   from payments p, accounts a \
   where p.account_id=a.id and a.uid=$1 \
   order by date, amount";

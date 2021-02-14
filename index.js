@@ -3,6 +3,7 @@ const express = require("express");
 const moment = require("moment");
 const { getPayments } = require("./db.js");
 const path = require('path');
+const { isRegExp } = require('util');
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -25,13 +26,14 @@ app.use(function (req, res) {
 });
 
 const getRecords = function (rows) {
+  if (!rows.length) {
+    return [];
+  }
 
   let balance = 0;
   let prev = null;
   let lastRate = 0;
   let start = null;
-
-  // console.log(rows);
 
   records = rows.map(row => {
     let paid = 0, loan = 0;
@@ -48,7 +50,7 @@ const getRecords = function (rows) {
     const months = moment(row.date).diff(moment(prev), 'months', true);
     const interest = Math.round(balance * row.rate / 100 * months);
 
-    const record = { id: row.id, date: row.date, prev, open: balance };
+    const record = { id: row.id, date: row.date, prev, open: balance, name: row.name };
     balance += loan + interest + paid;
 
     if (!start || balance <= 0) {
