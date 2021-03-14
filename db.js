@@ -3,6 +3,7 @@ const { Pool } = require("pg");
 let dbConfig = {};
 if (process.env.DATABASE_URL) {
   dbConfig.connectionString = process.env.DATABASE_URL;
+  dbConfig.ssl = { rejectUnauthorized: false };
 } else {
   dbConfig = {
     user: process.env.DB_USER || "vagrant",
