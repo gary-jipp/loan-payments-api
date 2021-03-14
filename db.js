@@ -10,6 +10,9 @@ if (process.env.DATABASE_URL) {
     host: process.env.DB_HOST || "localhost",
     database: process.env.DB_NAME || "loan-payment",
     port: process.env.DB_PORT || 5432,
+    ssl: {
+      rejectUnauthorized: false
+    }
   };
 }
 
